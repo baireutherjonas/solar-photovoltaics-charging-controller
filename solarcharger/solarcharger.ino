@@ -28,6 +28,7 @@ unsigned long lastTimestampJSON;
 unsigned long lastTimestampCheck;
 unsigned long lastManualChargingButtonPressed;
 unsigned long startManualChargingTimestamp;
+unsigned long lastButtonPressed;
 int bat;
 int jsonDisplayPosition = 0;
 StaticJsonDocument<30000> jsonObject;
@@ -51,6 +52,7 @@ void setup() {
   manualChargingDuration = 0;
   lastTimestampJSON = millis();
   lastTimestampCheck = millis();
+  lastButtonPressed = millis();
   setupWifi();
   getJSONFile();
 }
@@ -62,6 +64,8 @@ void setupWifi() {
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
+    display.print(".");
+    display.display(); 
   }
   Serial.println("");
   Serial.print("Connected to ");
@@ -82,23 +86,30 @@ void loop() {
 
   //if button pressed for manual charging
   if (digitalRead(manualChargingButtonPin) == LOW) {
-    //turn into manual charging mode
-    manualChargingMode = true;
-    // change charging duration on button pressed
-    if( manualChargingDuration < 5) {
-      manualChargingDuration++;
-    } else {
-      manualChargingDuration = 0;
+    if(millis()<=lastButtonPressed+displayTime*1000) {
+      //turn into manual charging mode
+      manualChargingMode = true;
+      // change charging duration on button pressed
+      if( manualChargingDuration < 5) {
+        manualChargingDuration++;
+      } else {
+        manualChargingDuration = 0;
+      }
+  
+      // store last button pressed, for starting after 5 seconds nothing is pressed
+      lastManualChargingButtonPressed = millis();
     }
-
-    // store last button pressed, for starting after 5 seconds nothing is pressed
-    lastManualChargingButtonPressed = millis();
     delay(100);
+    lastButtonPressed = millis();
   }
 
   // if button pressed for showing JSON
   if (digitalRead(showJSONButtonPin) == LOW) {
-    showJSON();
+    if(millis()<=lastButtonPressed+displayTime*1000) {
+      showJSON();
+    }
+    delay(100);
+    lastButtonPressed = millis();
   }
 
   // if in manual charging mode and last button pressed is older than 5 sec, start charging with selected time
@@ -134,7 +145,11 @@ void loop() {
     showManualChargingMode();
   } else {
     //show default charging display
-    updateDisplay();
+    if(millis()>lastButtonPressed+displayTime*1000) {
+      standbyScreen();
+    } else {
+      updateDisplay();
+    }
   }  
 }
 

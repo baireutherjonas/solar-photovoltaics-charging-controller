@@ -86,3 +86,8 @@ void showJSONHelper(JsonPair keyValue, int scrolling) {
       jsonDisplayPosition=jsonDisplayPosition+int(displayText.length()/22)+1;
     }
 }
+
+void standbyScreen() {
+    display.clearDisplay();
+    display.display();   
+}
