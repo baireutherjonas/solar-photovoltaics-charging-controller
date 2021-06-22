@@ -2,11 +2,11 @@
 
 ![Schematic](./img/schematic.svg)
 
-Automatically charging an electrical car based on the power in the power storage and how much cames form the photovoltaics.
+Automatic charging of an e-car based on the data of the battery in the house and the current power of the solar cell.
 
 Different charging modes:
 
-- automatical charging, based on fix values compared with real life values from the power station
+- automatical charging, based on fix values compared with live values from the power station
 - manual charging: startable via a button connected to the WEMOS D1 or via the web interface
 
 ## Hardware
