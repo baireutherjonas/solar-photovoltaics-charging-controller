@@ -1,0 +1,9 @@
+#define STASSID "WIFI_SSID"
+#define STAPSK  "WIFI_PASSWORD"
+#define SERVERURL "DOMAIN_OF_POWERSTORAGE"
+#define AUTH_KEY "AUTHKEY_FOR_POWERSTORAGE"
+
+const int defaultValues[ 12 ][ 2 ] = {{1050,95},{1060,95},{720,95},{550,66},{360,36},{280,25},{280,24},{270,26},{320,37},{510,66},{770,95},{960,95}};
+#define p_auto_w = 2400;
+#define timeMinNewJSON = 1;
+#define timeMinCheckCharging = 15;
