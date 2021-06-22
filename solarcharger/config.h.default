@@ -1,7 +1,7 @@
 #define STASSID "WIFI_SSID"
 #define STAPSK  "WIFI_PASSWORD"
-#define SERVERURL "DOMAIN_OF_POWERSTORAGE"
-#define AUTH_KEY "AUTHKEY_FOR_POWERSTORAGE"
+#define SERVERURL "DOMAIN_OF_BATTERYCONTROLLER"
+#define AUTH_KEY "AUTHKEY_FOR_BATTERYCONTROLLER"
 
 #define p_auto_w 2400
 // How often should the JSON file requested in minutes
