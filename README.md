@@ -1,6 +1,6 @@
 # solar-photovoltaics-charging-controller
 
-![Schematic](./img/schematic.svg)
+![Schematic](./img/schematic.png)
 
 Automatic charging of an e-car based on the data of the battery in the house and the current power of the solar cell.
 
