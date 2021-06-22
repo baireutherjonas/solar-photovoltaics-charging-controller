@@ -21,24 +21,16 @@ Different charging modes:
 
 ### Wiring
 
-| Wemos D1 | Device |
-|---|---|
-| 5V | like in the picture |
-| GND| like in the picture |
-| D4 | Manual Charging Button |
-| D3 | JSON-View Button |
-| D2 | SDA-Display |
-| D1 | SCL-Display |
-| RX |  |
-| TX |  |
-| RST |  |
-| A0 |  |
-| D0 |  |
-| D5 |  |
-| D6 |  |
-| D7 | Relay/Led |
-| D8 |  |
-| 3V3|  |
+| Device | Wemos D1 ||| Device |
+|---|---|---|---|---|
+| like in the picture | 5V |  | RST |  |
+| like in the picture | GND |  | A0 |  |
+| Manual Charging Button | D4  |  | D0 |  |
+| JSON-View Button | D3  |  | D5 |  |
+| SDA-Display | D2  |  | D6 |  |
+| SCL-Display | D1  |  | D7 | LED/Relay |
+|  | RX  |  | D8 |  |
+|  | TX  |  | 3V3 |  |
 
 ## Software
 
