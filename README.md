@@ -58,7 +58,3 @@ Open `http://IPADDRESS_OF_THE_WEMOS` and you will see the same thing like on the
 ![](img/default_screen.jpg)
 ![](img/json_screen.jpg)
 ![](img/manualCharging_screen.jpg)
-<img src="./img/webpage.png" width="300" />
-<img src="./img/default_screen.jpg" width="200" />
-<img src="./img/json_screen.jpg" width="200" />
-<img src="./img/manualCharging_screen.jpg" width="200" />
