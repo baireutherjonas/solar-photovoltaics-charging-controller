@@ -35,7 +35,7 @@ Different charging modes:
 
 ## Software
 
-Copy the `config.h.default` file into `config.h` and adjust all variables. Upload the code in the `solarcharger` folder on your Wemos D1 with the official [Arduion IDE](https://www.arduino.cc/en/software)
+The code is in the `solarcharger` folder. You can modify the code with the [Arduion IDE](https://www.arduino.cc/en/software).
 
 ### Flashing Wemos D1 Mini
 
@@ -53,11 +53,11 @@ Install the following tool [esptool](https://pypi.org/project/esptool/) for pyth
 
 Open `http://IPADDRESS_OF_THE_WEMOS` and you will see the same thing like on the display. You can also start charging from here.
 
-
-
-
 ## Screenshots / Displaypreview
-
+![](img/webpage.png)
+![](img/default_screen.jpg)
+![](img/json_screen.jpg)
+![](img/manualCharging_screen.jpg)
 <img src="./img/webpage.png" width="300" />
 <img src="./img/default_screen.jpg" width="200" />
 <img src="./img/json_screen.jpg" width="200" />
