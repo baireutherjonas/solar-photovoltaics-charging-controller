@@ -36,6 +36,11 @@ Different charging modes:
 
 Copy the `config.h.default` file into `config.h` and adjust all variables. Upload the code in the `solarcharger` folder on your Wemos D1 with the official [Arduion IDE](https://www.arduino.cc/en/software)
 
+### Flashing Wemos D1 Mini
+
+Install the following tool [esptool](https://pypi.org/project/esptool/) for python: `pip3 install esptool`. Connect the Wemos via USB with this computer. Get the port with `ls /dev/ttyUSB*`. If the controller is connected to `/dev/ttyUSB0` than you can use this command, otherwise you have to change the port in the command:
+`esptool.py --port /dev/ttyUSB0 write_flash 0x0000 charger/charger.ino.d1_mini.bin`
+
 ## Usage
 
 ### Button usage

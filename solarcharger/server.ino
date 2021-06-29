@@ -1,8 +1,16 @@
+void startServer() {
+  server.on("/", handleRoot);
+  server.on("/manualCharging", handleManualCharging);
+  server.onNotFound(handleNotFound);
+  server.begin();
+  Serial.println("HTTP server started");
+}
+
 void handleManualCharging() {
   for (int i = 0; i < server.args(); i++) {
     if(server.argName(i)=="duration") {
       manualChargingDuration = server.arg(i).toInt();
-      startCharging();
+      startCharging(manualChargingPin);
       startedManualCharging = true;
       manualChargingMode = true;
       startManualChargingTimestamp = millis();
@@ -12,13 +20,13 @@ void handleManualCharging() {
 }
 
 void handleRoot() {
-  String usoc = jsonObject["USOC"];
-  String prodW = jsonObject["Production_W"];
+  String usoc = jsonRequestFile["USOC"];
+  String prodW = jsonRequestFile["Production_W"];
   String result = "<!DOCTYPE html> <html><head><meta charset=\"UTF-8\"></head><body>";
   result += "PV " + prodW +"W<br>";
   result += "B ist " + usoc + "% <br>";
   result += "B 1h "+ String(bat) + "%<br>";
-  result += "B min "+ String(defaultValues[getMonth(jsonObject["Timestamp"])][0]) + "%<br>";
+  result += "B min "+ jsonConfigFile["defaultValues"][getMonth(jsonRequestFile["Timestamp"])][1].as<String>() + "%<br>";
   if(manualChargingMode){
     result += "Lädt noch " + remainingChargingDuration();
   } else {
@@ -32,4 +40,19 @@ void handleRoot() {
   result += "<a href=\"/manualCharging?duration=5\">Start charging 5h</a>";
   result += "</body></html>";
   server.send(200, "text/html", result);
+}
+
+void handleNotFound() {
+  String message = "File Not Found\n\n";
+  message += "URI: ";
+  message += server.uri();
+  message += "\nMethod: ";
+  message += (server.method() == HTTP_GET) ? "GET" : "POST";
+  message += "\nArguments: ";
+  message += server.args();
+  message += "\n";
+  for (uint8_t i = 0; i < server.args(); i++) {
+    message += " " + server.argName(i) + ": " + server.arg(i) + "\n";
+  }
+  server.send(404, "text/plain", message);
 }

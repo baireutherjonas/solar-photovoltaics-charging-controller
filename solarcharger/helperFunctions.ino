@@ -8,8 +8,9 @@ String remainingChargingDuration() {
   return String(remainHour)+":"+ String(remainMin)+":"+String(remainSec);
 }
 
+
 String getCountdown() {
-  int remainSec = (1000*60*timeMinCheckCharging-(millis() - lastTimestampCheck));
+  int remainSec = (1000*60*jsonConfigFile["local"]["timeMinCheckCharging"].as<int>()-(millis() - lastTimestampCheck));
   remainSec = remainSec / 1000;
   int remainMin = remainSec / 60;
   remainSec = remainSec % 60;
@@ -34,9 +35,9 @@ int getMonth(String timestamp)  {
 }
 
 void checkCharging() {
-  if(bat>defaultValues[getMonth(jsonObject["Timestamp"])][1]) {
-    startCharging();
+  if(bat>jsonConfigFile["defaultValues"][getMonth(jsonRequestFile["Timestamp"])][1]) {
+    startCharging(manualChargingPin);
   } else {
-    stopCharging();
+    stopCharging(manualChargingPin);
   }  
 }

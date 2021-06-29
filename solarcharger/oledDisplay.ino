@@ -1,4 +1,18 @@
-void showManualChargingMode() {
+#define SCREEN_WIDTH 128 // OLED display width, in pixels
+#define SCREEN_HEIGHT 64 // OLED display height, in pixels
+// Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+
+int jsonDisplayPosition;
+
+void configDisplay() {
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3D for 128x64
+    Serial.println(F("SSD1306 allocation failed"));
+    for(;;);
+  }  
+}
+
+void showManualChargingMode(int manualChargingDuration, long lastManualChargingButtonPressed) {
   
   display.clearDisplay();
 
@@ -15,7 +29,7 @@ void showManualChargingMode() {
   display.display(); 
 }
 
-void showWifiConnecting() {
+void showWifiConnecting(String ssid) {
   display.clearDisplay();
 
   display.setTextSize(1);
@@ -24,16 +38,31 @@ void showWifiConnecting() {
   display.println("Mit WLAN verbinden");
   display.setCursor(0, 10);
   display.println("SSID: ");
-  display.println(STASSID);
+  display.println(ssid);
   display.display(); 
 }
 
-void updateDisplay() {
-  
+void showConfigurationHint(String ssid, IPAddress ipaddr) {
   display.clearDisplay();
 
-  String usoc = jsonObject["USOC"];
-  String prodW = jsonObject["Production_W"];
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 0);
+  display.println("Mit WLAN verbinden");
+  display.setCursor(0, 10);
+  display.println("SSID: ");
+  display.println("   " + ssid);
+  display.print("http://");
+  display.print(ipaddr);
+  display.println(" aufrufen");
+  display.println("");
+  display.println("Alternativ SD-Karte einlegen");
+  display.display(); 
+}
+
+void updateDisplay(String prodW, String usoc, String bat) {
+  
+  display.clearDisplay();
   display.setTextSize(1);
   display.setTextColor(WHITE);
   display.setCursor(0, 0);
@@ -41,21 +70,22 @@ void updateDisplay() {
   display.setCursor(0, 10);
   display.println("B ist " + usoc + "% ");
   display.setCursor(0, 20);
-  display.println("B 1h "+ String(bat) + "%");
+  display.println("B 1h "+ bat + "%");
   display.setCursor(0, 30);
-  display.println("B min "+ String(defaultValues[getMonth(jsonObject["Timestamp"])][0]) + "%");
+  display.println("B min "+ jsonConfigFile["defaultValues"][getMonth(jsonRequestFile["Timestamp"])][1].as<String>() + "%");
   display.setCursor(0, 40);
   if(manualChargingMode){
     display.println("Lädt noch " + remainingChargingDuration());
   } else {
     display.println(getCountdown());
   }
+
   display.display(); 
 }
 
 void showJSON() {
   int scrolling = 0;
-  JsonObject documentRoot = jsonObject.as<JsonObject>();
+  JsonObject documentRoot = jsonRequestFile.as<JsonObject>();
   for(int j=0;j<140;j++) {
     display.clearDisplay();
     display.setTextSize(1);

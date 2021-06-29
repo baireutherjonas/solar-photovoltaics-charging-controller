@@ -1,8 +1,8 @@
 
-void startCharging() {
+void startCharging(int manualChargingPin) {
     digitalWrite(manualChargingPin,HIGH);
 }
 
-void stopCharging() {
+void stopCharging(int manualChargingPin) {
     digitalWrite(manualChargingPin,LOW);
 }
