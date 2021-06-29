@@ -15,6 +15,7 @@ Different charging modes:
 |---|---|---|
 | 1 | Wemos D1 Mini | [link](https://www.makershop.de/plattformen/d1-mini/wemos-d1-mini-2/) |
 | 1 | OLED Display 0,96 Zoll I2C| [link](https://www.az-delivery.de/en/products/0-96zolldisplay) |
+| 1 | SPI Reader Micro Memory SD TF Card Memory Card Shield Module | [link](https://www.az-delivery.de/en/products/copy-of-spi-reader-micro-speicherkartenmodul-fur-arduino) |
 | 2 | Button| --- |
 | 2 | 10k resistor| --- |
 | 1 | relay | [link](https://www.az-delivery.de/en/products/relais-modul) |
@@ -25,11 +26,11 @@ Different charging modes:
 |---|---|---|---|---|
 | like in the picture | 5V |  | RST |  |
 | like in the picture | GND |  | A0 |  |
-| Manual Charging Button | D4  |  | D0 |  |
-| JSON-View Button | D3  |  | D5 |  |
-| SDA-Display | D2  |  | D6 |  |
-| SCL-Display | D1  |  | D7 | LED/Relay |
-|  | RX  |  | D8 |  |
+| Manual Charging Button | D4  |  | D0 | LED/Relay |
+| JSON-View Button | D3  |  | D5 | SCK-SD |
+| SDA-Display | D2  |  | D6 | MISO-SD |
+| SCL-Display | D1  |  | D7 | MOSI-SD |
+|  | RX  |  | D8 | CS-SD |
 |  | TX  |  | 3V3 |  |
 
 ## Software
