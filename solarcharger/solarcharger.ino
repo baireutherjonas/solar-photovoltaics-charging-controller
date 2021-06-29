@@ -47,6 +47,12 @@ void setup() {
 
   normalrun = false;
   config_file_available = false;
+  manualChargingMode = false;
+  startedManualCharging = false;
+  manualChargingDuration = 0;
+  lastTimestampJSON = millis();
+  lastTimestampCheck = millis();
+  lastButtonPressed = millis();
   
   configDisplay();
   startServer();
@@ -54,10 +60,9 @@ void setup() {
   checkIfConfigFileAvailable();
 
   if(config_file_available) {
-    firstStart();
+    loadConfig();
   } else {
-    IPAddress ipAddr = createAP("Charger Station","123456789");
-    showConfigurationHint("Charger Station", ipAddr);
+    firstStartHint();
   }
 }
 
@@ -80,32 +85,41 @@ void checkIfConfigFileAvailable() {
 
       config_file_available = true;
       myFile.close();
-      firstStart();
     }
   }
   
 }
 
+void firstStartHint() {
+    IPAddress ipAddr = createAP("Charger Station","123456789");
+    showConfigurationHint("Charger Station", ipAddr);
+}
 
-void firstStart() {
+
+void loadConfig() {
   showWifiConnecting(jsonConfigFile["wifi"]["ssid"].as<String>());
-  connectWiFi(jsonConfigFile["wifi"]["ssid"].as<String>(),jsonConfigFile["wifi"]["pw"].as<String>());
-  getJSONFile(jsonConfigFile["server"]["url"].as<String>(),jsonConfigFile["server"]["authkey"].as<String>());
-  normalrun = true;
-  manualChargingMode = false;
-  startedManualCharging = false;
-  manualChargingDuration = 0;
-  lastTimestampJSON = millis();
-  lastTimestampCheck = millis();
-  lastButtonPressed = millis();
+  if(connectWiFi(jsonConfigFile["wifi"]["ssid"].as<String>(),jsonConfigFile["wifi"]["pw"].as<String>())) {
+    getJSONFile(jsonConfigFile["server"]["url"].as<String>(),jsonConfigFile["server"]["authkey"].as<String>());
+    normalrun = true;
+  } else {
+    firstStartHint();
+  }
+  
 }
 
 void loop() {
   server.handleClient();
   if(normalrun) {
     handleNormal();
-  } else {
+  }
+
+  if(SD.begin(chipSelect) && !sd_connected){
     checkIfConfigFileAvailable();
+      loadConfig();
+  }
+
+  if (!SD.begin(chipSelect)) {
+    sd_connected = false;
   }
 }
 

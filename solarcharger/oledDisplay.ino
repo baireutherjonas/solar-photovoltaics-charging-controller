@@ -72,7 +72,7 @@ void updateDisplay(String prodW, String usoc, String bat) {
   display.setCursor(0, 20);
   display.println("B 1h "+ bat + "%");
   display.setCursor(0, 30);
-  display.println("B min "+ jsonConfigFile["defaultValues"][getMonth(jsonRequestFile["Timestamp"])][1].as<String>() + "%");
+  display.println("B min "+ jsonConfigFile["defaultValues"][getMonth(jsonRequestFile["Timestamp"].as<String>())]["battery_min"].as<String>() + "%");
   display.setCursor(0, 40);
   if(manualChargingMode){
     display.println("Lädt noch " + remainingChargingDuration());
