@@ -25,6 +25,7 @@ void handleManualCharging() {
 }
 
 void saveConfig() {
+  handleRoot();
   for (int i = 0; i < server.args(); i++) {
     if(server.argName(i)=="configfile") {
       String configfileString= server.arg(i);
@@ -38,7 +39,6 @@ void saveConfig() {
       loadConfig();
     }
   }
-  handleRoot();
 }
 
 void handleRoot() {
@@ -70,7 +70,7 @@ void handleConfig() {
   result += "<textarea name=\"configfile\" cols=\"100\" rows=\"30\">";
   result += output;
   result += "</textarea>";
-  result += "<input type=\"submit\" value=\"save\" /></div></form><p><a class=\"btnbtn-primary\" data-bs-toggle=\"collapse\" href=\"#collapseExample\" role=\"button\" aria-expanded=\"false\" aria-controls=\"collapseExample\">Default config</a></p><div class=\"collapse\" id=\"collapseExample\"><div class=\"card card-body\"> {\"wifi\":{\"ssid\":\"WiFi Name\",\"pw\":\"WiFi Password\"},\"server\":{\"url\":\"sonnenbatterie-url\",\"authkey\":\"sonnenbatterie-api key\"},\"local\":{\"p_auto_w\":2400,\"timeMinNewJSON\":1,\"timeMinCheckCharging\":15,\"displayTime\":600},\"defaultValues\":[{\"basicDemand\":1050,\"battery_min\":95},{\"basicDemand\":1060,\"battery_min\":95},{\"basicDemand\":720,\"battery_min\":95},{\"basicDemand\":550,\"battery_min\":66},{\"basicDemand\":360,\"battery_min\":36},{\"basicDemand\":280,\"battery_min\":25},{\"basicDemand\":280,\"battery_min\":24},{\"basicDemand\":270,\"battery_min\":26},{\"basicDemand\":320,\"battery_min\":37},{\"basicDemand\":510,\"battery_min\":66},{\"basicDemand\":770,\"battery_min\":95},{\"basicDemand\":960,\"battery_min\":95}]}</div></div>";
+  result += "<input type=\"submit\" value=\"save\" /></div></form><p><a class=\"btnbtn-primary\" data-bs-toggle=\"collapse\" href=\"#collapseExample\" role=\"button\" aria-expanded=\"false\" aria-controls=\"collapseExample\">Default config</a></p><div class=\"collapse\" id=\"collapseExample\"><div class=\"card card-body\"> {\"wifi\":{\"ssid\":\"WiFi Name\",\"pw\":\"WiFi Password\"},\"server\":{\"url\":\"sonnenbatterie-url\",\"authkey\":\"sonnenbatterie-api key\"},\"local\":{\"p_auto_w\":2400,\"timeMinNewJSON\":1,\"timeMinCheckCharging\":15,\"displayTime\":600},\"defaultValues\":[{\"basicDemand\":1050,\"battery_min\":95},{\"basicDemand\":1060,\"battery_min\":95},{\"basicDemand\":720,\"battery_min\":95},{\"basicDemand\":550,\"battery_min\":66},{\"basicDemand\":360,\"battery_min\":36},{\"basicDemand\":280,\"battery_min\":25},{\"basicDemand\":280,\"battery_min\":24},{\"basicDemand\":270,\"battery_min\":26},{\"basicDemand\":320,\"battery_min\":37},{\"basicDemand\":510,\"battery_min\":66},{\"basicDemand\":770,\"battery_min\":95},{\"basicDemand\":960,\"battery_min\":95}],\"displayJSONvalues\":[\"Consumption_W\",\"secondssincefullcharge\",\"Max System SOC\"]}</div></div>";
   
   String body = html_body;
   server.send(200, "text/html", result+body);

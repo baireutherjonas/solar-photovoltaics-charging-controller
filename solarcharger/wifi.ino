@@ -9,7 +9,7 @@ IPAddress createAP(String ssid, String password) {
 bool connectWiFi(String ssid, String password) {
   WiFi.begin(ssid, password);
   int connectionTries = 0;
-  while (WiFi.status() != WL_CONNECTED && connectionTries < 40) {
+  while (WiFi.status() != WL_CONNECTED && connectionTries < 120) {
     delay(500);
     Serial.print(".");
     display.print(".");
@@ -17,7 +17,7 @@ bool connectWiFi(String ssid, String password) {
     connectionTries++;
   }
 
-  if(connectionTries >= 40) {
+  if(connectionTries >= 120) {
     return false;
   } else {
     return true;

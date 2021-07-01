@@ -4,8 +4,8 @@ void getJSONFile(String serverURL, String authKey) {
   if(productionWList.size()>15){
     productionWList.remove(0);
   }
-  
-  bat = constrain(((getAverageProduction() - jsonConfigFile["defaultValues"][getMonth(jsonRequestFile["Timestamp"].as<String>())]["basicDemand"].as<int>() - jsonConfigFile["local"]["p_auto_w"].as<int>())/ jsonRequestFile["FullChargeCapacity"].as<int>() * 100 + jsonRequestFile["USOC"].as<int>() ),0,100);
+
+  bat = constrain(((float(getAverageProduction()) - jsonConfigFile["defaultValues"][getMonth(jsonRequestFile["Timestamp"].as<String>())]["basicDemand"].as<float>() - jsonConfigFile["local"]["p_auto_w"].as<float>())/ jsonRequestFile["FullChargeCapacity"].as<float>() * 100 + jsonRequestFile["USOC"].as<float>() ),0,100);
 }
 
 

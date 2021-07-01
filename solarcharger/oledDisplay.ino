@@ -84,9 +84,10 @@ void updateDisplay(String prodW, String usoc, String bat) {
 }
 
 void showJSON() {
-  int scrolling = 0;
+  int scrolling = -40;
   JsonObject documentRoot = jsonRequestFile.as<JsonObject>();
-  for(int j=0;j<140;j++) {
+  int sizeArray= jsonConfigFile["displayJSONvalues"].as<JsonArray>().size(); 
+  for(int j=0;j<sizeArray+4;j++) {
     display.clearDisplay();
     display.setTextSize(1);
     display.setTextColor(WHITE);
@@ -96,7 +97,7 @@ void showJSON() {
     }
     display.display(); 
     scrolling = scrolling + 10;
-    delay(300);
+    delay(1000);
   }
 }
 
@@ -105,15 +106,16 @@ void showJSONHelper(JsonPair keyValue, int scrolling) {
     JsonVariant value = keyValue.value();
     if(value.is<JsonObject>()) {
       JsonObject checker = value.as<JsonObject>();
-      display.println(String(keyValue.key().c_str()) + ":");
-      jsonDisplayPosition++;
       for (JsonPair keyValue : checker) {
         showJSONHelper(keyValue,scrolling);
       }
     } else {
-      String displayText = String(keyValue.key().c_str()) + ":" + String(keyValue.value().as<String>());
-      display.println(displayText);
-      jsonDisplayPosition=jsonDisplayPosition+int(displayText.length()/22)+1;
+      String disaplyValues = jsonConfigFile["displayJSONvalues"].as<String>();
+      if(disaplyValues.indexOf(keyValue.key().c_str()) > 0) {
+          String displayText = String(keyValue.key().c_str()) + ":" + String(keyValue.value().as<String>());
+          display.println(displayText);
+          jsonDisplayPosition=jsonDisplayPosition+int(displayText.length()/22)+1;
+      }
     }
 }
 
