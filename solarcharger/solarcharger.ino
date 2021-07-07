@@ -160,7 +160,7 @@ void handleNormal() {
   }
 
   // if in manual charging mode, check the duration of the progress and stop after selected time
-  if(millis()>startManualChargingTimestamp+manualChargingDuration*1000*60*60) {
+  if(millis()>startManualChargingTimestamp+manualChargingDuration*1000*60*60 && manualChargingMode) {
     manualChargingMode = false;
     startedManualCharging = false;
     stopCharging(manualChargingPin);
