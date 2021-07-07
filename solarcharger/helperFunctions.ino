@@ -29,9 +29,10 @@ int getAverageProduction() {
   return calcsum / productionWList.size();
 }
 
-int getMonth(String timestamp)  {
+int getMonth(String timestamp)
+{
   timestamp = timestamp.substring(timestamp.indexOf("-")+1);
-  return timestamp.substring(0, timestamp.indexOf("-")+1).toInt();
+  return timestamp.substring(0, timestamp.indexOf("-")+1).toInt()-1;
 }
 
 void checkCharging() {
