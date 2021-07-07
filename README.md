@@ -1,4 +1,4 @@
-# Automatic car charger (wallbox)
+# Automatic car charger
 
 ![Schematic](./img/schematic.png)
 
