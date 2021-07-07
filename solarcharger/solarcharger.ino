@@ -44,6 +44,7 @@ void setup() {
   pinMode(manualChargingPin,OUTPUT);
   pinMode(manualChargingButtonPin,INPUT);
   pinMode(showJSONButtonPin,INPUT);
+  stopCharging(manualChargingPin);
 
   normalrun = false;
   config_file_available = false;
