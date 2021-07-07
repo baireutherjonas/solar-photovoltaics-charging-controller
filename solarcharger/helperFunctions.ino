@@ -35,7 +35,7 @@ int getMonth(String timestamp)  {
 }
 
 void checkCharging() {
-  if(bat>jsonConfigFile["defaultValues"][getMonth(jsonRequestFile["Timestamp"])][1]) {
+  if(bat>jsonConfigFile["defaultValues"][getMonth(jsonRequestFile["Timestamp"].as<String>())]["battery_min"].as<int>()) {
     startCharging(manualChargingPin);
   } else {
     stopCharging(manualChargingPin);
